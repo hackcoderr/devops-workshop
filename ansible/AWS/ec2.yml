@@ -1,0 +1,24 @@
+- hosts: "localhost"
+  vars_files:
+      - secrets.yml
+
+  tasks:
+  - name: "Provisioning OS on AWS using Ansible"
+    ec2:
+       key_name: "key"
+       instance_type: "t2.micro"
+       image: "ami-0a9d27a9f4f5c0efc"
+       wait: yes
+       count: 1
+       instance_tags:
+          Name: AWS_Ansib_Instance
+       vpc_subnet_id: "subnet-d77560bf"
+       assign_public_ip: yes
+       region: "ap-south-1"
+       state: present
+       group_id: "sg-0108a92e39352ebf8"
+       aws_access_key: "{{access_key}}"
+       aws_secret_key: "{{secret_key}}"
+    register: X
+
+
